@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energia Solar e Engenharia Elétrica em Foz do Iguaçu | Bitter Engenharia</title>
+    <meta name="description" content="Projetos de energia solar, entrada de serviço COPEL, instalações elétricas e laudos técnicos em Foz do Iguaçu. Engenheiros eletricistas com CREA-PR. Orçamento gratuito.">
+    <meta name="keywords" content="energia solar foz do iguaçu, engenheiro eletricista foz, padrão copel, instalação solar paraná">
+    <meta property="og:title" content="Bitter Engenharia Elétrica — Foz do Iguaçu">
+    <meta property="og:description" content="Energia solar e engenharia elétrica com a segurança de quem é engenheiro.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://solar.bitter.eng.br">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <img src="./assets/img/BitterLogo_branca%201.png" alt="Bitter Engenharia" class="logo">
+        </div>
+    </header>
+
+    <!-- 1. HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="badge">
+                <i class="ph ph-certificate"></i> CREA-PR • Engenheiros Eletricistas
+            </div>
+            <h1>Sua obra merece <span class="highlight">engenharia de verdade.</span></h1>
+            <p class="subheadline">Projetos elétricos e energia solar com a segurança de quem é engenheiro. Foz do Iguaçu e região.</p>
+            <a href="#contato" class="btn-primary">Solicite um Orçamento Gratuito</a>
+        </div>
+    </section>
+
+    <!-- 2. VERTICAIS -->
+    <section class="verticais" id="servicos">
+        <div class="container">
+            <h2>Nossos Serviços</h2>
+            <div class="cards-grid">
+                <!-- Card 1 -->
+                <div class="vertical-card" data-vertical="SOLAR" onclick="selectVertical('SOLAR')">
+                    <div class="icon-wrapper"><i class="ph ph-sun"></i></div>
+                    <h3>Energia Solar</h3>
+                    <p>Reduza sua conta em até 95%. Projeto, homologação e instalação completa.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="vertical-card" data-vertical="COPEL" onclick="selectVertical('COPEL')">
+                    <div class="icon-wrapper"><i class="ph ph-lightning"></i></div>
+                    <h3>Entrada de Serviço</h3>
+                    <p>Padrão COPEL, aumento de carga e nova ligação com agilidade.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="vertical-card" data-vertical="ELETRICA" onclick="selectVertical('ELETRICA')">
+                    <div class="icon-wrapper"><i class="ph ph-wrench"></i></div>
+                    <h3>Instalações Elétricas</h3>
+                    <p>Projetos residenciais, comerciais e industriais com excelência.</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="vertical-card" data-vertical="LAUDO" onclick="selectVertical('LAUDO')">
+                    <div class="icon-wrapper"><i class="ph ph-magnifying-glass"></i></div>
+                    <h3>Laudos e Vistorias</h3>
+                    <p>Laudos técnicos para seguros, perícias e diagnóstico de falhas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. PROVA SOCIAL -->
+    <section class="prova-social">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="500">+500</span>
+                    <span class="stat-label">kWp instalados</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="150">+150</span>
+                    <span class="stat-label">projetos entregues</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="5">+5</span>
+                    <span class="stat-label">anos de experiência</span>
+                </div>
+            </div>
+            <div class="crea-seal">
+                <i class="ph ph-shield-check"></i> Responsabilidade Técnica de Engenheiro
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. FORMULÁRIO -->
+    <section class="contato-section" id="contato">
+        <div class="container">
+            <div class="form-wrapper">
+                <h2>Solicite seu Orçamento</h2>
+                <p>Nossa equipe técnica entrará em contato em breve.</p>
+                
+                <div class="vertical-tabs" id="verticalTabs">
+                    <button class="tab-btn active" data-tab="SOLAR">Solar</button>
+                    <button class="tab-btn" data-tab="COPEL">Copel</button>
+                    <button class="tab-btn" data-tab="ELETRICA">Elétrica</button>
+                    <button class="tab-btn" data-tab="LAUDO">Laudo</button>
+                </div>
+
+                <form id="leadForm">
+                    <!-- Base Fields -->
+                    <div class="form-group">
+                        <label for="name">Nome completo *</label>
+                        <input type="text" id="name" name="name" required placeholder="Digite seu nome">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">WhatsApp *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="(45) 99999-9999">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" placeholder="seu@email.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">Cidade *</label>
+                        <input type="text" id="city" name="city" required placeholder="Ex: Foz do Iguaçu">
+                    </div>
+
+                    <!-- Dynamic Fields Container -->
+                    <div id="dynamicFields" class="dynamic-fields">
+                        <!-- Fields injected via JS -->
+                    </div>
+
+                    <button type="submit" class="btn-primary w-100" id="submitBtn">
+                        Quero meu Orçamento Gratuito <i class="ph ph-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. POR QUE BITTER? -->
+    <section class="diferenciais" id="sobre">
+        <div class="container">
+            <h2>Por que Bitter?</h2>
+            <div class="cards-grid-3">
+                <div class="diferencial-card">
+                    <i class="ph ph-student"></i>
+                    <h3>Engenharia, não commodity</h3>
+                    <p>Você paga pela segurança de um projeto assinado por engenheiro, não por um vendedor de placas.</p>
+                </div>
+                <div class="diferencial-card">
+                    <i class="ph ph-currency-circle-dollar"></i>
+                    <h3>Transparência Total</h3>
+                    <p>Separamos o custo dos equipamentos, materiais e serviços. Você sabe exatamente onde cada real está investido.</p>
+                </div>
+                <div class="diferencial-card">
+                    <i class="ph ph-headset"></i>
+                    <h3>Pós-venda real</h3>
+                    <p>Nosso compromisso não termina na instalação. Monitoramento e suporte contínuo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. FAQ -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <h2>Perguntas Frequentes</h2>
+            <div class="accordion" id="faqAccordion">
+                <!-- FAQs injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-info">
+                <img src="./assets/img/BitterLogo_branca%201.png" alt="Bitter Engenharia" class="footer-logo">
+                <p>CREA-PR • Responsável Técnico</p>
+                <p>Foz do Iguaçu - PR</p>
+            </div>
+            <div class="footer-contact">
+                <a href="https://wa.me/5545991500513" target="_blank"><i class="ph ph-whatsapp-logo"></i> (45) 99150-0513</a>
+                <a href="mailto:contato@bitter.eng.br"><i class="ph ph-envelope-simple"></i> contato@bitter.eng.br</a>
+            </div>
+            <div class="footer-links">
+                <a href="#" target="_blank"><i class="ph ph-instagram-logo"></i> Instagram</a>
+                <a href="#" target="_blank"><i class="ph ph-map-pin"></i> Google Maps</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast de Sucesso -->
+    <div id="toast" class="toast">
+        <i class="ph ph-check-circle"></i> Recebemos sua solicitação! Nossa equipe vai entrar em contato em breve pelo WhatsApp. 🎉
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
