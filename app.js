@@ -184,7 +184,7 @@ const verticalFAQs = {
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
     initDynamicForm();
-    initFAQ();
+    // initFAQ is called inside renderFields — no need to call separately
     initSmoothScroll();
 });
 
@@ -223,8 +223,10 @@ function initDynamicForm() {
         }
     }
 
-    // Set initial
-    renderFields(currentVertical);
+    // Set initial — use rAF to ensure DOM is fully ready
+    requestAnimationFrame(() => {
+        renderFields(currentVertical);
+    });
 
     // Tab clicks
     tabBtns.forEach(btn => {
