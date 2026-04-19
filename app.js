@@ -1,7 +1,8 @@
 // --- CONFIGURATION ---
-const API_BASE = window.location.hostname === 'localhost' 
-    ? '' 
-    : 'https://bitter-crm.ngrok.io'; // Update this when deploying
+// CRM API (will work when Cloudflare Tunnel is configured)
+const CRM_API = ''; // Will be set to tunnel URL later, e.g. 'https://crm.bitter.eng.br'
+// Fallback: FormSubmit.co sends lead data to email (always works, no backend needed)
+const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/contato@bitter.eng.br';
 
 // --- STATE ---
 let currentVertical = 'SOLAR';
@@ -252,7 +253,7 @@ function initDynamicForm() {
         submitBtn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Enviando...';
         submitBtn.disabled = true;
 
-        // Gather base data
+        // Gather ALL form data (base + dynamic fields)
         const formData = new FormData(form);
         const payload = {
             name: formData.get('name'),
@@ -261,34 +262,67 @@ function initDynamicForm() {
             city: formData.get('city'),
             product: currentVertical,
             origin: 'LANDING_PAGE',
-            // We could also capture the dynamic fields here if the CRM endpoint supports it
-            // For now, mapping to the base /api/ingest payload
         };
+        // Capture dynamic fields
+        const dynamicFields = {};
+        formData.forEach((value, key) => {
+            if (!['name','phone','email','city'].includes(key)) {
+                dynamicFields[key] = value;
+            }
+        });
+        payload.details = JSON.stringify(dynamicFields);
 
-        try {
-            const res = await fetch(`${API_BASE}/api/ingest`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+        let success = false;
 
-            if (!res.ok) throw new Error('Erro na API');
+        // Strategy 1: Try CRM API (when tunnel is configured)
+        if (CRM_API) {
+            try {
+                const res = await fetch(`${CRM_API}/api/ingest`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (res.ok) success = true;
+            } catch (err) {
+                console.warn('[CRM] API indisponível, usando fallback.', err);
+            }
+        }
 
-            // Success Toast
+        // Strategy 2: FormSubmit.co fallback (always works, sends email)
+        if (!success) {
+            try {
+                const emailPayload = {
+                    name: payload.name,
+                    phone: payload.phone,
+                    email: payload.email || 'Não informado',
+                    message: `NOVO LEAD via Landing Page\n\nNome: ${payload.name}\nWhatsApp: ${payload.phone}\nE-mail: ${payload.email || 'N/A'}\nCidade: ${payload.city}\nServiço: ${payload.product}\nDetalhes: ${payload.details}`,
+                    _subject: `🔥 Novo Lead: ${payload.name} — ${payload.product}`,
+                    _template: 'table'
+                };
+                const res = await fetch(FORMSUBMIT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(emailPayload)
+                });
+                if (res.ok) success = true;
+            } catch (err) {
+                console.error('[FormSubmit] Fallback também falhou:', err);
+            }
+        }
+
+        if (success) {
             showToast();
             form.reset();
-            renderFields(currentVertical); // reset dynamic fields too
-            
-        } catch (error) {
-            console.error('Submission error:', error);
-            alert('Houve um erro ao enviar. Por favor, tente novamente ou contate pelo WhatsApp.');
-        } finally {
-            // Re-enable after 5s to prevent double click spam
-            setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }, 5000);
+            renderFields(currentVertical);
+        } else {
+            alert('Houve um erro ao enviar. Por favor, entre em contato pelo WhatsApp: (45) 99150-0513');
         }
+
+        // Re-enable after 5s
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, 5000);
     });
 }
 
