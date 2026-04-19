@@ -114,6 +114,10 @@
                 </div>
 
                 <form id="leadForm">
+                    <!-- Honeypot anti-bot (invisível para humanos) -->
+                    <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                        <input type="text" name="website" tabindex="-1" autocomplete="off">
+                    </div>
                     <!-- Base Fields -->
                     <div class="form-group">
                         <label for="name">Nome completo *</label>
