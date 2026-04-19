@@ -2,7 +2,7 @@
 // CRM API (will work when Cloudflare Tunnel is configured)
 const CRM_API = ''; // Will be set to tunnel URL later, e.g. 'https://crm.bitter.eng.br'
 // Fallback: FormSubmit.co sends lead data to email (always works, no backend needed)
-const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/contato@bitter.eng.br';
+const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/contato@bitterengenharia.com.br';
 
 // --- STATE ---
 let currentVertical = 'SOLAR';
